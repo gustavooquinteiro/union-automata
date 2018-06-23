@@ -7,7 +7,7 @@
 using namespace std;
 
 // Desenvolvedores: Christian Elster e Gustavo Oliveira Quinteiro
-// Compile com g++ formais.cpp 
+// Compile com g++ joinAutomata.cpp 
 
 typedef pair<int, int> par; // Declaração de um par ordenado de estados 
 
@@ -63,7 +63,7 @@ Automato iniciarAutomato (Automato automato, set<char> alfabeto){
 	// Lê  a quantidade de estados que o automato tem
 	cout << "Insira a quantidade de estados do automato: " << endl;
 	cin >> numeroDeEstados; 
-	// Insere os estados (de 0 a numeroDeEstados) no automato 
+	// Insere os estados (de 0 a numeroDeEstados -1) no automato 
 	for (int i = 0; i < numeroDeEstados; i++){
 		// Assumo 0 como estado inicial
 		if (i == 0)
@@ -87,7 +87,7 @@ AutomatoDaUniao unirAutomatos(Automato A1, Automato A2){
 	for (set<int>::iterator it = A1.estado.begin(); it != A1.estado.end(); it++){
 		for (set<int>::iterator i = A2.estado.begin(); i != A2.estado.end(); i++){
 
-			// Cria um novo estado com o par it de A1 e i de A2 
+			// Cria um novo estado com o par it (estado de A1) e i (estado de A2)
 			par from = make_pair(*it, *i); 
 
 			// Adiciona esse novo estado no conjunto de estados do automato da uniao
@@ -124,16 +124,15 @@ AutomatoDaUniao unirAutomatos(Automato A1, Automato A2){
 	return M;
 }
 
-void formatarSaidaParaJFLAP(AutomatoDaUniao M){
+void gerarArquivoDoJFLAP(AutomatoDaUniao M){
 	FILE* file;
 	
 	file = fopen("uniao.jff", "w");
-	char str[] = "<?xml version='1.0' encoding='UTF-8' standalone='no'?>\n";
-	fputs(str, file);
 	int cont = 0;
-	fputs("<structure>&#13;\n", file);	
-	fputs("\t<type>fa</type>&#13;\n", file);
-	fputs("\t<automaton>&#13;\n		<!--The list of states.-->\n", file);
+	fprintf(file,"<?xml version='1.0' encoding='UTF-8' standalone='no'?>\n" );
+	fprintf(file, "<structure>&#13;\n");	
+	fprintf(file, "\t<type>fa</type>&#13;\n");
+	fprintf(file, "\t<automaton>&#13;\n		<!--The list of states.-->\n");
 	// Listando os estados do automato 
 	for(set<par>::iterator it = M.estados.begin(); it != M.estados.end(); it++){
 		fprintf(file, "\t\t<state id=\"%d%d\" name=\"q%d\">&#13;\n", (*it).first, (*it).second, cont);
@@ -141,8 +140,8 @@ void formatarSaidaParaJFLAP(AutomatoDaUniao M){
 			fprintf(file, "\t\t\t<x>%0.1f</x>&#13;\n",(float)135 + 50*(cont));
 			fprintf(file, "\t\t\t<y>136.0</y>&#13;\n");
 		} else{
-			fprintf(file, "\t\t\t<x>%0.1f</x>&#13;\n", (float)135 + 50*(cont-1));
-			fprintf(file, "\t\t\t<y>220.0</y>&#13;\n");
+			fprintf(file, "\t\t\t<x>%0.1f</x>&#13;\n", (float)135 + 60*(cont-1));
+			fprintf(file, "\t\t\t<y>226.0</y>&#13;\n");
 		}
 		
 		if ( (*it) == M.estadoInicial){
@@ -177,14 +176,13 @@ void formatarSaidaParaJFLAP(AutomatoDaUniao M){
 
 set<char> lerAlfabeto(){
 	set<char> alfabeto;	
-	string a; 
+	string caracteres; 
 
-	// Ler alfabeto
 	cout << "Insira o alfabeto na próxima linha: "<< endl;
-	getline(cin, a);
-	for (int i =0; i < a.size(); i++){
-		if (a[i] == ' ' || a[i] == '\n') continue;
-		alfabeto.insert(a[i]);
+	getline(cin, caracteres);
+	for (int i =0; i < caracteres.size(); i++){
+		if (caracteres[i] == ' ' || caracteres[i] == '\n') continue;
+		alfabeto.insert(caracteres[i]);
 	}
 	
 	return alfabeto;
@@ -194,12 +192,15 @@ int main(){
 	Automato automato1,  automato2;  	
 	
 	set<char> alfabeto = lerAlfabeto();
+
 	cout << "Automato 1" << endl;	
 	automato1 = iniciarAutomato(automato1, alfabeto); 
+
 	cout << "Automato 2" << endl;
 	automato2 = iniciarAutomato(automato2, alfabeto);
+
 	cout << "Unindo os automatos" << endl;
 	// Gerar arquivo de saída do automato A1 U A2 
-	formatarSaidaParaJFLAP(unirAutomatos(automato1, automato2));
+	gerarArquivoDoJFLAP(unirAutomatos(automato1, automato2));
 	
 }

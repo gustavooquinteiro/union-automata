@@ -5,7 +5,7 @@ using namespace std;
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
-class Automata{
+class DeterministicAutomata{
 
 private:
     set<int> estado; // Conjunto de estados, Q
@@ -14,8 +14,8 @@ private:
 	int estadoInicial; // Estado inicial q0 
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
-    Automata();
-    ~Automata();
+    DeterministicAutomata();
+    ~DeterministicAutomata();
     set<int> getEstados() const;
     map<int, map<char, int>> getDelta() const;
     set<int> getEstadosFinais() const;
@@ -23,6 +23,23 @@ public:
     set<char> getAlfabeto() const;
 
 
+};
+
+class NonDeterministicAutomata{
+private:
+    set <int> estados;
+    map <int, map<char, set<int>>> delta;
+    set<int> estadosFinais;
+    int estadoInicial;
+    set <char> alfabeto;
+public:
+    NonDeterministicAutomata();
+    ~NonDeterministicAutomata();
+    set<int> getEstados() const;
+    map<int, map<char, set<int>>> getDelta() const;
+    set<int> getEstadosFinais() const;
+    int getEstadoInicial() const;
+    set<char> getAlfabeto() const;
 };
 
 #endif

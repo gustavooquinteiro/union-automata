@@ -1,64 +1,74 @@
 #include "../lib/union-automata.h"
 
-UnionAutomata :: UnionAutomata(Automata A, Automata B){
-
+UnionAutomata :: UnionAutomata(DeterministicAutomata A, DeterministicAutomata B){
+	cout << "Juntando os automatos" << endl;
     for(set<int>::iterator estadoDeA = A.getEstados().begin(); estadoDeA != A.getEstados().end(); estadoDeA++){
         for(set<int>::iterator estadoDeB = B.getEstados().begin(); estadoDeB != B.getEstados().end(); estadoDeB++){
+           	cout << "Formando os pares" << endl;
+           	cout << *estadoDeA << " e " << *estadoDeB << endl;
             par from = make_pair(*estadoDeA, *estadoDeB);
+            cout << "Inserindo no automato da união" << endl;
             estados.insert(from);
 
             if (A.getEstadosFinais().find(*estadoDeA) != A.getEstadosFinais().end() || B.getEstadosFinais().find(*estadoDeB) != B.getEstadosFinais().end()){
+                cout << "Definindo estados finais" << endl;
                 estadoFinal.insert(from);
             }
 
             if (A.getEstadoInicial() == *estadoDeA && B.getEstadoInicial() == *estadoDeB){
+            	cout << "Definindo o estado inicial" << endl;
                 estadoInicial = from;
             }
         }
     }
+	unirAlfabeto(A.getAlfabeto(), B.getAlfabeto());
 	for (set<par>::iterator iterando = estados.begin(); iterando != estados.end(); iterando++){
-		if (A.getAlfabeto() == B.getAlfabeto()){
-			alfabeto = A.getAlfabeto();
-			for (set<char>::iterator lendo = alfabeto.begin(); lendo != alfabeto.end(); lendo++){
-				int destinoDeA = A.getDelta()[(*iterando).first][*lendo];
-				int destinoDeB = B.getDelta()[(*iterando).second][*lendo];
-				par to = make_pair(destinoDeA, destinoDeB);
-				estados.insert(to);
-				delta[*iterando][*lendo] = to;
-			}
-		} else{
-			unirAlfabeto(A, B);
-			for (set<char>::iterator lendo = alfabeto.begin(); lendo != alfabeto.end(); lendo++){
-				if (A.getAlfabeto().find(*lendo) != A.getAlfabeto().end()){
-					int destinoDeA = A.getDelta()[(*iterando).first][*lendo];
-					for (set<int>::iterator it = B.getEstados().begin(); it != B.getEstados().end(); it++){
-						par novo = make_pair(destinoDeA, *it);
-						delta[*iterando][*lendo] = novo; 
-					}
-				}
-				if (B.getAlfabeto().find(*lendo) != B.getAlfabeto().end()){
-					int destinoDeB = B.getDelta()[(*iterando).second][*lendo];
-					for (set<int>::iterator it = A.getEstados().begin(); it != A.getEstados().end(); it++){
-						par novo = make_pair(*it, destinoDeB);
-						delta[*iterando][*lendo] = novo; 
-					}
-				}
+		for (set<char>::iterator lendo = alfabeto.begin(); lendo != alfabeto.end(); lendo++){
+			cout << "Mapeando" << endl;
+			int destinoDeA = 0, destinoDeB = 0;
+			bool flagA, flagB;
+
+			if (A.getAlfabeto().find(*lendo) != A.getAlfabeto().end()){
+				cout << "Pegando de A" << endl;
+				destinoDeA = A.getDelta()[(*iterando).first][*lendo];
+				flagA = true;
+			} 
 				
-					
+
+			if (B.getAlfabeto().find(*lendo) != B.getAlfabeto().end()){
+				cout << "Pegando de B" << endl;
+				destinoDeB = B.getDelta()[(*iterando).second][*lendo];
+				flagB = true;
+			}
+				
+			if (flagA && flagB){
+				cout << "Juntando os estados" << endl;
+				par to = make_pair(destinoDeA, destinoDeB);
+				cout << "Inserindo o estado" << endl;
+				estados.insert(to);
+				cout << "Inserindo no delta da união" << endl;
+				delta[*iterando][*lendo] = to;
+			} else{
+				for(set<par>::iterator estado = estados.begin(); estado != estados.end(); estado++){
+					if (!flagA && estado->second == destinoDeB){
+						delta[*iterando][*lendo] = *estado;
+					}
+					if (!flagB && estado->first == destinoDeA){
+						delta[*iterando][*lendo] = *estado;
+					}
+				}
 			}
 		}
 	}
-	
-
-
 }
 
-void UnionAutomata:: unirAlfabeto(Automata A, Automata B){
-	for (set<char>::iterator alfabetoA = A.getAlfabeto().begin(); alfabetoA != A.getAlfabeto().end(); alfabetoA++){	
+void UnionAutomata:: unirAlfabeto(set<char> A, set<char> B){
+	cout << "Unindo os alfabetos" << endl;
+	for (set<char>::iterator alfabetoA = A.begin(); alfabetoA != A.end(); alfabetoA++){	
 		alfabeto.insert(*alfabetoA);
 	}
 
-	for(set<char>::iterator alfabetoB = B.getAlfabeto().begin(); alfabetoB != B.getAlfabeto().end(); alfabetoB++){
+	for(set<char>::iterator alfabetoB = B.begin(); alfabetoB != B.end(); alfabetoB++){
 		alfabeto.insert(*alfabetoB);
 	}
 }
@@ -113,4 +123,5 @@ void UnionAutomata:: gerarArquivo(){
 	fprintf(file, "</structure>");
 	fclose(file);
 
+	cout << "Arquivo gerado!"<< endl;
 }

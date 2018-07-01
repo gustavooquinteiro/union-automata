@@ -1,6 +1,6 @@
-# Makefile do Trabalho de Estrutura de Dados e Algoritmos I - MATA40
-# Simulação de Agência Bancária Otimizada utilizando conceito de árvore binária AVL
-# Maiores detalhes do desenvolvimento, vide https://github.com/gustavooquinteiro/SearchBinaryTree
+# Makefile do Trabalho de Linguagens Formais e Automatos - MATA50
+# União de automatos deterministicos
+# Maiores detalhes do desenvolvimento, vide https://github.com/gustavooquinteiro/union-automata
 
 # Nome do projeto e do executável encontrado no diretório corrente após compilação
 PROJ_NAME = JoinAutomata
@@ -14,11 +14,15 @@ H_SOURCE = $(wildcard ./lib/*.h)
 # Arquivos objetos .o encontrados em obj/ após compilação
 OBJ = $(subst .cpp,.o,$(subst src,obj,$(C_SOURCE)))
 
-# Compilador utilizado em testes: gcc (GCC) 7.2.1 20171224  
+# Compilador utilizado
 CC = g++
 
 # Flags utilizadas na compilação
 CC_FLAGS = -c \
+		   -Wall\
+		   -Wpedantic\
+		   -Wextra\
+		   -Ofast
            -g \
 
 # Comando de construção de diretório
@@ -52,7 +56,7 @@ objFolder:
 # Regra de limpeza de objetos e executável
 clean:
 	@ echo -e -n " [${GREEN} OK ${NC}]"
-	@ $(RM) obj $(PROJ_NAME) *~ *.o
+	@ $(RM) obj $(PROJ_NAME)
 	@ echo ' Workspace limpo'
 
 .PHONY: all clean

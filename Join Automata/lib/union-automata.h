@@ -21,9 +21,9 @@ private:
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
 	UnionAutomata();
-    UnionAutomata (Automata A, Automata B);
+    UnionAutomata (DeterministicAutomata A, DeterministicAutomata B);
     ~UnionAutomata();
-	void unirAlfabeto(Automata A, Automata B);
+	void unirAlfabeto(set<char> A, set<char> B);
     void gerarArquivo();
 };
 

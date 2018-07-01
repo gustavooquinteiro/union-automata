@@ -1,14 +1,15 @@
 #include "../lib/automata.h"
 
-Automata ::Automata(){
+DeterministicAutomata::DeterministicAutomata(){
     
-	string caracteres; 
-
-	cout << "Insira o alfabeto na próxima linha: "<< endl;
-	getline(cin, caracteres);
-	for (int i =0; i < caracteres.size(); i++){
-		if (caracteres[i] == ' ' || caracteres[i] == '\n') continue;
-		alfabeto.insert(caracteres[i]);
+	int quantidadeLetras = 0;
+	cout << "Insira a quantidade de letras do alfabeto: ";
+	cin >> quantidadeLetras;
+	cout << "Insira as letras do alfabeto: " << endl;
+	for (int i = 0; i < quantidadeLetras; i++){
+		char letra;
+		cin >> letra; 
+		alfabeto.insert(letra);
 	}
 
     int numeroDeEstados = 0;
@@ -26,7 +27,7 @@ Automata ::Automata(){
 	cout << "Insira todas as transições do automato: " << endl;
 	for(int j =0; j < numeroDeTransicoes; j++){
 		cin >> estadoDe >> palavra >> estadoPara;
-		delta[estadoDe][palavra] = estadoPara;
+		delta[estadoDe][palavra] = (estadoPara);
 	}
 
 
@@ -43,26 +44,53 @@ Automata ::Automata(){
 
 }
 
-Automata :: ~Automata(){
+DeterministicAutomata :: ~DeterministicAutomata(){
     delete this;
 }
 
-set<int> Automata:: getEstados() const{
+set<int> DeterministicAutomata:: getEstados() const{
      return estado;
 }
 
-map<int, map<char, int>> Automata :: getDelta() const{
+map<int, map<char, int>> DeterministicAutomata :: getDelta() const{
     return delta;
 }
 
-set<int> Automata::getEstadosFinais() const{
+set<int> DeterministicAutomata::getEstadosFinais() const{
     return estadoFinal;
 }
 
-int Automata ::getEstadoInicial() const{
+int DeterministicAutomata ::getEstadoInicial() const{
     return estadoInicial;
 }
 
-set<char> Automata::getAlfabeto() const{
+set<char> DeterministicAutomata::getAlfabeto() const{
+    return alfabeto;
+}
+
+NonDeterministicAutomata::NonDeterministicAutomata(){
+
+}
+NonDeterministicAutomata::~NonDeterministicAutomata(){
+
+}
+
+set<int> NonDeterministicAutomata:: getEstados() const{
+     return estados;
+}
+
+map<int, map<char, set<int>>> NonDeterministicAutomata :: getDelta() const{
+    return delta;
+}
+
+set<int> NonDeterministicAutomata::getEstadosFinais() const{
+    return estadosFinais;
+}
+
+int NonDeterministicAutomata ::getEstadoInicial() const{
+    return estadoInicial;
+}
+
+set<char> NonDeterministicAutomata::getAlfabeto() const{
     return alfabeto;
 }

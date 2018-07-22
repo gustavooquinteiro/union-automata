@@ -3,7 +3,7 @@
 DeterministicAutomata::DeterministicAutomata(){
     
 	int quantidadeLetras = 0;
-	cout << "Insira a quantidade de letras do alfabeto: ";
+	cout << "Insira a quantidade de letras do alfabeto: " << endl;
 	cin >> quantidadeLetras;
 	cout << "Insira as letras do alfabeto: " << endl;
 	for (int i = 0; i < quantidadeLetras; i++){
@@ -27,7 +27,7 @@ DeterministicAutomata::DeterministicAutomata(){
 	cout << "Insira todas as transições do automato: " << endl;
 	for(int j =0; j < numeroDeTransicoes; j++){
 		cin >> estadoDe >> palavra >> estadoPara;
-		delta[estadoDe][palavra] = (estadoPara);
+		delta[estadoDe][palavra] = estadoPara;
 	}
 
 
@@ -41,11 +41,13 @@ DeterministicAutomata::DeterministicAutomata(){
 		estadoFinal.insert(estadosFinal); 
 	}	
 
-
 }
 
-DeterministicAutomata :: ~DeterministicAutomata(){
-    delete this;
+
+bool DeterministicAutomata:: procuraEstadoFinal(int x){
+    if (estadoFinal.find(x) != estadoFinal.end())
+        return true;
+    return false;
 }
 
 set<int> DeterministicAutomata:: getEstados() const{
@@ -67,6 +69,8 @@ int DeterministicAutomata ::getEstadoInicial() const{
 set<char> DeterministicAutomata::getAlfabeto() const{
     return alfabeto;
 }
+
+
 
 NonDeterministicAutomata::NonDeterministicAutomata(){
 

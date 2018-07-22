@@ -19,12 +19,15 @@ CC = g++
 
 # Flags utilizadas na compilação
 CC_FLAGS = -c \
-		   -Wall\
-		   -Wpedantic\
-		   -Wextra\
-		   -Ofast
-           -g \
+	-Wall\
+	-Wpedantic\
+	-Wextra\
+	-g \
 
+	
+OPT_FLAGS = -Ofast\
+	-O2 \
+	
 # Comando de construção de diretório
 MKDIR = mkdir -p
 						
@@ -38,25 +41,25 @@ NC=\033[0m
 all: objFolder $(PROJ_NAME)
 
 $(PROJ_NAME): $(OBJ)
+	@ $(CC) $(OPT_FLAGS) $^ -o $@ 
 	@ echo -e -n " [${GREEN} OK ${NC}]"
-	@ $(CC) $^ -o $@ 
 	@ echo " Construido binário $@"
 
 ./obj/%.o: ./src/%.cpp ./lib/%.h
-	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ $(CC) $< $(CC_FLAGS) -o $@
+	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo " Compilado $< em $@"
 
 # Regra de criação de diretório para os objetos
 objFolder:
-	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ $(MKDIR) obj
+	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo ' Criado diretório para objetos'
 
 # Regra de limpeza de objetos e executável
 clean:
-	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ $(RM) obj $(PROJ_NAME)
+	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo ' Workspace limpo'
 
 .PHONY: all clean

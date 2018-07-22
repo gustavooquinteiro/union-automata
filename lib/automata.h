@@ -15,7 +15,7 @@ private:
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
     DeterministicAutomata();
-    ~DeterministicAutomata();
+    bool procuraEstadoFinal(int x);
     set<int> getEstados() const;
     map<int, map<char, int>> getDelta() const;
     set<int> getEstadosFinais() const;

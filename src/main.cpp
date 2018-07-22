@@ -8,5 +8,6 @@ int main(){
 	DeterministicAutomata automato2;
 	UnionAutomata uniteAutomaton(automato1, automato2);
 	uniteAutomaton.gerarArquivo();
+    return(EXIT_SUCCESS);
 
 }

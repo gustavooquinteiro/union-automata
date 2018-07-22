@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <map>
+#include <queue>
 #include <utility>
 #include <algorithm>
 #include <stdlib.h>
@@ -20,9 +21,7 @@ private:
 	par estadoInicial; // Estado inicial q0 
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
-	UnionAutomata();
     UnionAutomata (DeterministicAutomata A, DeterministicAutomata B);
-    ~UnionAutomata();
 	void unirAlfabeto(set<char> A, set<char> B);
     void gerarArquivo();
 };

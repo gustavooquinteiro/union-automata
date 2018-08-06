@@ -1,8 +1,8 @@
-#include "../../lib/automata/non-deterministic-automata.h"
+#include "../lib/automata.h"
 
-NonDeterministicAutomata::NonDeterministicAutomata(){
+Automata::Automata(){
 
-    int quantidadeLetras = 0;
+	int quantidadeLetras = 0;
 	cout << "Insira a quantidade de letras do alfabeto: " << endl;
 	cin >> quantidadeLetras;
 	cout << "Insira as letras do alfabeto: " << endl;
@@ -23,11 +23,7 @@ NonDeterministicAutomata::NonDeterministicAutomata(){
 
     int estadoDe, estadoPara;
 	char palavra;
-	int	numeroDeTransicoes;
-
-    cout << "Insira a quantidade de transições do automato: "<< endl;
-    cin >> numeroDeTransicoes;
-
+	int	numeroDeTransicoes = alfabeto.size() * estado.size();;
 	cout << "Insira todas as transições do automato: " << endl;
 	for(int j =0; j < numeroDeTransicoes; j++){
 		cin >> estadoDe >> palavra >> estadoPara;
@@ -47,6 +43,22 @@ NonDeterministicAutomata::NonDeterministicAutomata(){
 
 }
 
-NonDeterministicAutomata::~NonDeterministicAutomata(){
+set<int> Automata::getEstados() const{
+     return estado;
+}
 
+map<int, map<char, int>> Automata::getDelta() const{
+    return delta;
+}
+
+set<int> Automata::getEstadosFinais() const{
+    return estadoFinal;
+}
+
+int Automata::getEstadoInicial() const{
+    return estadoInicial;
+}
+
+set<char> Automata::getAlfabeto() const{
+    return alfabeto;
 }

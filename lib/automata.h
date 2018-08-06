@@ -1,9 +1,10 @@
+#ifndef AUTOMATA_H
+#define AUTOMATA_H
+
 #include <iostream>
 #include <set>
 #include <map>
 using namespace std;
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
 
 class Automata{
 
@@ -20,6 +21,8 @@ public:
     set<int> getEstadosFinais() const;
     int getEstadoInicial() const;
     set<char> getAlfabeto() const;
+
+
 };
 
 #endif

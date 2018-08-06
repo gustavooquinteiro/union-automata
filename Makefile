@@ -24,14 +24,17 @@ CC_FLAGS = -c \
 	-Wextra\
 	-g \
 
-	
+# Flags de otimização
 OPT_FLAGS = -Ofast\
 	-O2 \
-	
+
 # Comando de construção de diretório
 MKDIR = mkdir -p
-						
-# Comando de limpeza de alvos 
+
+#Arquivo de saida
+O_FILE = "uniao.jff"
+
+# Comando de limpeza de alvos
 RM = rm -rf
 
 GREEN=\033[0;32m
@@ -41,7 +44,7 @@ NC=\033[0m
 all: objFolder $(PROJ_NAME)
 
 $(PROJ_NAME): $(OBJ)
-	@ $(CC) $(OPT_FLAGS) $^ -o $@ 
+	@ $(CC) $(OPT_FLAGS) $^ -o $@
 	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo " Construido binário $@"
 
@@ -58,7 +61,7 @@ objFolder:
 
 # Regra de limpeza de objetos e executável
 clean:
-	@ $(RM) obj $(PROJ_NAME)
+	@ $(RM) obj $(PROJ_NAME) ${O_FILE}
 	@ echo -e -n " [${GREEN} OK ${NC}]"
 	@ echo ' Workspace limpo'
 

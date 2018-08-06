@@ -1,6 +1,6 @@
-#include "../../lib/automata/union-automata.h"
+#include "../lib/union-automata.h"
 
-UnionAutomata :: UnionAutomata(DeterministicAutomata A, DeterministicAutomata B){
+UnionAutomata::UnionAutomata(DeterministicAutomata A, DeterministicAutomata B){
 
     queue <par> fila;
     map <par, bool> marca;
@@ -41,12 +41,15 @@ UnionAutomata :: UnionAutomata(DeterministicAutomata A, DeterministicAutomata B)
 void UnionAutomata:: unirAlfabeto(set<char> A, set<char> B){
     if (A == B){
         alfabeto = A;
+        return;
     }else{
         for (set<char>::iterator alfabetoA = A.begin(); alfabetoA != A.end(); alfabetoA++){
+            cout << "Inserindo A" << endl;
             alfabeto.insert(*alfabetoA);
         }
 
         for(set<char>::iterator alfabetoB = B.begin(); alfabetoB != B.end(); alfabetoB++){
+            cout << "Inserindo B" << endl;
             alfabeto.insert(*alfabetoB);
         }
     }

@@ -1,9 +1,11 @@
+#ifndef DFA_H
+#define DFA_H
+
 #include <iostream>
 #include <set>
 #include <map>
+#include "automata.h"
 using namespace std;
-#ifndef DFA_H
-#define DFA_H
 
 class DeterministicAutomata: public Automata{
 

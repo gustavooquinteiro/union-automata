@@ -8,14 +8,13 @@
 #include <utility>
 #include <algorithm>
 #include <stdlib.h>
-#include "automata.h"
 #include "deterministic-automata.h"
 using namespace std;
 
 
 typedef pair<int, int> par; // Declaração de um par ordenado de estados
 
-class UnionAutomata: public Automata{
+class UnionAutomata{
 private:
 	set< par > estados; // Conjunto de estados, Q
 	map <par, map< char, par> > delta; // Função de transição DELTA
@@ -23,9 +22,11 @@ private:
 	par estadoInicial; // Estado inicial q0
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
-  UnionAutomata(DeterministicAutomata A, DeterministicAutomata B);
-	void unirAlfabeto(set<char> A, set<char> B);
+  UnionAutomata();
+	void unirAutomatos(const Automata &A, const Automata &B);
+	void unirAlfabeto(const set<char> &A, const set<char> &B);
   void gerarArquivo();
+	void minimizar() const;
 };
 
 #endif

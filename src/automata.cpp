@@ -1,7 +1,7 @@
 #include "../lib/automata.h"
 
 Automata::Automata(){
-
+	IOS;
 	int quantidadeLetras = 0;
 	cout << "Insira a quantidade de letras do alfabeto: " << endl;
 	cin >> quantidadeLetras;
@@ -12,8 +12,8 @@ Automata::Automata(){
 		alfabeto.insert(letra);
 	}
 
-    int numeroDeEstados = 0;
-    cout << "Insira a quantidade de estados do automato: " << endl;
+  int numeroDeEstados = 0;
+  cout << "Insira a quantidade de estados do automato: " << endl;
 	cin >> numeroDeEstados;
 	for (int i = 0; i < numeroDeEstados; i++){
 		if (i == 0)
@@ -21,7 +21,7 @@ Automata::Automata(){
 		estado.insert(i);
 	}
 
-    int estadoDe, estadoPara;
+  int estadoDe, estadoPara = 0;
 	char palavra;
 	int	numeroDeTransicoes = alfabeto.size() * estado.size();;
 	cout << "Insira todas as transições do automato: " << endl;
@@ -30,9 +30,7 @@ Automata::Automata(){
 		delta[estadoDe][palavra] = estadoPara;
 	}
 
-
-   	int numeroEstadosFinais;
-	int estadosFinal;
+ 	int numeroEstadosFinais, estadosFinal = 0;
 	cout << "Insira a quantidade de estados finais: " << endl;
 	cin >> numeroEstadosFinais;
 	cout << "Insira os estados finais: " << endl;
@@ -40,8 +38,8 @@ Automata::Automata(){
 		cin >> estadosFinal;
 		estadoFinal.insert(estadosFinal);
 	}
-
 }
+
 
 set<int> Automata::getEstados() const{
      return estado;
@@ -49,6 +47,14 @@ set<int> Automata::getEstados() const{
 
 map<int, map<char, int>> Automata::getDelta() const{
     return delta;
+}
+
+int Automata::getTransicao(int de, char lendo) const{
+	try{
+		return delta.at(de).at(lendo);
+	} catch(exception &e){
+		cerr << "Error occurred::" << e.what() << endl;
+	}
 }
 
 set<int> Automata::getEstadosFinais() const{
@@ -61,4 +67,10 @@ int Automata::getEstadoInicial() const{
 
 set<char> Automata::getAlfabeto() const{
     return alfabeto;
+}
+
+bool Automata::procuraEstadoFinal(int valor) const{
+  if (estadoFinal.find(valor) != estadoFinal.end())
+    return true;
+  return false;
 }

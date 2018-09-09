@@ -1,9 +1,10 @@
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
-
+#define IOS ios_base::sync_with_stdio(false);
 #include <iostream>
 #include <set>
 #include <map>
+
 using namespace std;
 
 class Automata{
@@ -21,7 +22,8 @@ public:
     set<int> getEstadosFinais() const;
     int getEstadoInicial() const;
     set<char> getAlfabeto() const;
-
+    int getTransicao(int de, char lendo) const;
+    bool procuraEstadoFinal(int valor) const;
 
 };
 

@@ -18,7 +18,6 @@ protected:
 public:
     Automata();
     set<int> getEstados() const;
-    map<int, map<char, int>> getDelta() const;
     set<int> getEstadosFinais() const;
     int getEstadoInicial() const;
     set<char> getAlfabeto() const;

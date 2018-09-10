@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "automata.h"
 #include "union-automata.h"
+#include "file-manager.h"
 using namespace std;
 
     int main();

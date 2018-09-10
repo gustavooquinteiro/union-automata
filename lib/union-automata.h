@@ -8,7 +8,7 @@
 #include <utility>
 #include <algorithm>
 #include <stdlib.h>
-#include "deterministic-automata.h"
+#include "automata.h"
 using namespace std;
 
 
@@ -26,6 +26,10 @@ public:
 	void unirAutomatos(const Automata &A, const Automata &B);
 	void unirAlfabeto(const set<char> &A, const set<char> &B);
   void gerarArquivo();
+	set<par> getEstados() const;
+	bool findFinalState(par actualState) const;
+	bool isBeginState(par actualState) const;
+	map <par, map< char, par> > getDelta() const;
 	void minimizar() const;
 };
 

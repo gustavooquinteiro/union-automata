@@ -45,16 +45,8 @@ set<int> Automata::getEstados() const{
      return estado;
 }
 
-map<int, map<char, int>> Automata::getDelta() const{
-    return delta;
-}
-
 int Automata::getTransicao(int de, char lendo) const{
-	try{
 		return delta.at(de).at(lendo);
-	} catch(exception &e){
-		cerr << "Error occurred::" << e.what() << endl;
-	}
 }
 
 set<int> Automata::getEstadosFinais() const{

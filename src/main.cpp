@@ -7,7 +7,11 @@ int main(){
 	UnionAutomata uniteAutomaton;
 
 	uniteAutomaton.unirAutomatos(automato1, automato2);
-	uniteAutomaton.gerarArquivo();
+	char mode[] = "w";
+	char file[] = "uniao.jff";
+	FileManager fileManager(file, mode);
+	fileManager.gerarArquivo(uniteAutomaton);
+
 
 	return(EXIT_SUCCESS);
 

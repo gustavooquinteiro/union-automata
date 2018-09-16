@@ -1,6 +1,5 @@
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
-#define IOS ios_base::sync_with_stdio(false);
 #include <iostream>
 #include <set>
 #include <map>

@@ -64,7 +64,6 @@ map <par, map< char, par> > UnionAutomata::getDelta() const{
 }
 
 UnionAutomata::~UnionAutomata(){
-    cout << "Deleting UnionAutomata" << endl;
     estados.clear();
     estadoFinal.clear();
     alfabeto.clear();

@@ -6,7 +6,6 @@ FileManager::FileManager(string nome){
 }
 
 FileManager::~FileManager(){
-    cout << "Fechando arquivo" << endl;
     name.clear();
     arquivo.close();
 }
@@ -47,7 +46,6 @@ void FileManager::gerarArquivo(const UnionAutomata &automata) {
             char read = i.first;
             par to = i.second;
             arquivo << "\t\t<transition>&#13;\n";
-            stringstream ss; 
   			arquivo << "\t\t\t<from>"<<from.first <<""<<from.second <<"</from>&#13;\n";
   			arquivo << "\t\t\t<to>"<< to.first << ""<<to.second <<"</to>&#13;\n";
   			arquivo << "\t\t\t<read>"<< read <<"</read>&#13;\n";
@@ -56,9 +54,21 @@ void FileManager::gerarArquivo(const UnionAutomata &automata) {
   	}
     arquivo << "\t</automaton>&#13;\n";
   	arquivo << "</structure>";
-  } catch(exception& e){
-    cerr << "Error occurred::" << e.what() << endl;
+  } catch(exception& error){
+    logger(error);
   }
   
 cout << "Arquivo "<< name << " gerado!"<< endl;
 }
+
+
+void FileManager::logger(exception& error){
+    ofstream log;
+    log.open("unionautomata.log", ios::app | ios::out);
+    time_t now = time(0);
+	char* dt = ctime(&now);
+	log << dt;
+    log <<"Error happened: \n\t" << error.what() << endl;
+    log.close();
+}
+

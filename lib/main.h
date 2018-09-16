@@ -10,6 +10,5 @@
 using namespace std;
 
     int main();
-    void removeMemoryHeap(Automata * automata);
 
 #endif

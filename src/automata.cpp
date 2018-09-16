@@ -1,7 +1,6 @@
 #include "../lib/automata.h"
 
 Automata::Automata(){
-	IOS;
 	int quantidadeLetras = 0;
 	cout << "Insira a quantidade de letras do alfabeto: " << endl;
 	cin >> quantidadeLetras;
@@ -68,7 +67,6 @@ bool Automata::procuraEstadoFinal(int valor) const{
 }
 
 Automata::~Automata(){
-    cout << "Deleting Automata" << endl;
     estado.clear();
     estadoFinal.clear();
     alfabeto.clear();

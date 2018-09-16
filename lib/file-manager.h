@@ -6,6 +6,8 @@
 #include <map>
 #include <queue>
 #include <utility>
+#include <sstream>
+#include <fstream>
 #include <algorithm>
 #include <stdlib.h>
 #include "union-automata.h"
@@ -14,9 +16,9 @@ using namespace std;
 class FileManager{
 private:
   string name;
-  FILE * arquivo;
+  ofstream arquivo;
 public:
-  FileManager(char* name, char* mode);
+  FileManager(string name);
   ~FileManager();
   void gerarArquivo(const UnionAutomata &automata);
 };

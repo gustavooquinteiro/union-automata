@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
 #include "automata.h"
 #include "union-automata.h"
 #include "file-manager.h"

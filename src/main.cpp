@@ -1,16 +1,18 @@
 #include "../lib/main.h"
 
 int main(){
+    Automata * automato1 = new Automata();
+    Automata * automato2 = new Automata();
+	//unique_ptr<Automata> automato1(new Automata);
+    //unique_ptr<Automata> automato2(new Automata);
+    
+	//unique_ptr<UnionAutomata> uniteAutomaton(new UnionAutomata);
+    UnionAutomata * uniteAutomaton = new UnionAutomata();
 
-	Automata automato1;
-	Automata automato2;
-	UnionAutomata uniteAutomaton;
-
-	uniteAutomaton.unirAutomatos(automato1, automato2);
-	char mode[] = "w";
-	char file[] = "uniao.jff";
-	FileManager fileManager(file, mode);
-	fileManager.gerarArquivo(uniteAutomaton);
+	uniteAutomaton->unirAutomatos(*automato1, *automato2);
+	string file = "uniao.jff";
+	unique_ptr<FileManager>fileManager (new FileManager(file));
+	fileManager->gerarArquivo(*uniteAutomaton);
 
 
 	return(EXIT_SUCCESS);

@@ -17,6 +17,7 @@ protected:
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
     Automata();
+    ~Automata();
     set<int> getEstados() const;
     set<int> getEstadosFinais() const;
     int getEstadoInicial() const;

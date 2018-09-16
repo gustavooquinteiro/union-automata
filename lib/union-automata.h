@@ -23,6 +23,7 @@ private:
 	set<char> alfabeto; // Alfabeto SIGMA
 public:
   UnionAutomata();
+  ~UnionAutomata();
 	void unirAutomatos(const Automata &A, const Automata &B);
 	void unirAlfabeto(const set<char> &A, const set<char> &B);
   void gerarArquivo();

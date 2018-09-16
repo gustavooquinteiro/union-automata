@@ -66,3 +66,11 @@ bool Automata::procuraEstadoFinal(int valor) const{
     return true;
   return false;
 }
+
+Automata::~Automata(){
+    cout << "Deleting Automata" << endl;
+    estado.clear();
+    estadoFinal.clear();
+    alfabeto.clear();
+    delta.clear();
+}

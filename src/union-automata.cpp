@@ -63,13 +63,13 @@ map <par, map< char, par> > UnionAutomata::getDelta() const{
   return delta;
 }
 
-/**UnionAutomata::~UnionAutomata(){
-  delete &estados;
-  delete &estadoFinal;
-  delete &alfabeto;
-  delete &delta;
-  delete &estadoInicial;
-}**/
+UnionAutomata::~UnionAutomata(){
+    cout << "Deleting UnionAutomata" << endl;
+    estados.clear();
+    estadoFinal.clear();
+    alfabeto.clear();
+    delta.clear();
+}
 
 void UnionAutomata::unirAlfabeto(const set<char> &A, const set<char> &B){
       if(A == B){
